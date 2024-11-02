@@ -48,40 +48,39 @@ export const login = async ({ name, email, password }) => {
 };
 
 //To update password
+export const updatePassword = async ({
+  name,
+  email,
+  password,
+  newPassword
+}) => {
+  try {
+    console.log("Sending request with data:", {
+      name,
+      email,
+      password,
+      newPassword
+    });
 
-// export const updatePassword = async ({
-//   name,
-//   email,
-//   password,
-//   newPassword
-// }) => {
-//   try {
-//     console.log("Sending request with data:", {
-//       name,
-//       email,
-//       password,
-//       newPassword
-//     });
+    const response = await axios.post(
+      `${BACKEND_URL}/auth/updatePassword`,
+      { name, email, password, newPassword },
+      {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+    );
 
-//     const response = await axios.post(
-//       `${BACKEND_URL}/auth/updatePassword`,
-//       { name, email, password, newPassword },
-//       {
-//         headers: {
-//           "Content-Type": "application/json"
-//         }
-//       }
-//     );
+    console.log("Response received:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Error in updatePassword:",
+      error.response?.data || error.message
+    );
 
-//     console.log("Response received:", response.data);
-//     return response.data;
-//   } catch (error) {
-//     console.error(
-//       "Error in updatePassword:",
-//       error.response?.data || error.message
-//     );
-
-//     // Throw a new error with a more user-friendly message
-//     throw new Error(error.response?.data?.message || "Error updating password");
-//   }
-// };
+    // Throw a new error with a more user-friendly message
+    throw new Error(error.response?.data?.message || "Error updating password");
+  }
+};
