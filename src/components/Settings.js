@@ -32,56 +32,32 @@ const Settings = () => {
   console.log(userData);
 
   //Update password
-  // const handleUpdate = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const { name, email, password, newPassword } = userData;
-  //     const response = await updatePassword({
-  //       name,
-  //       email,
-  //       password,
-  //       newPassword
-  //     });
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      const { name, email, password, newPassword } = userData;
 
-  //     if (response.status === 200) {
-  //       toast.success("Password Updated Successfully!");
-  //       Navigate("/login");
-  //     }
-  //   } catch (error) {
-  //     toast.error(
-  //       "Failed to update password. Please check your details and try again."
-  //     );
-  //     console.error("Detailed error:", error.message);
-  //   }
-  // };
+      const response = await updatePassword({
+        name,
+        email,
+        password,
+        newPassword
+      });
 
-  //Update password
-  // const handleUpdate = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const { name, email, password, newPassword } = userData;
+      if (response.status === 200) {
+        toast.success("Password Updated Successfully!");
 
-  //     const response = await updatePassword({
-  //       name,
-  //       email,
-  //       password,
-  //       newPassword
-  //     });
-
-  //     if (response.status === 200) {
-  //       toast.success("Password Updated Successfully!");
-
-  //       Navigate("/login");
-  //     } else {
-  //       toast.error("Failed to update password. Please check your details.");
-  //     }
-  //   } catch (error) {
-  //     toast.error(
-  //       "Failed to update password. Please check your details and try again."
-  //     );
-  //     console.error("Detailed error:", error.message);
-  //   }
-  // };
+        Navigate("/login");
+      } else {
+        toast.error("Failed to update password. Please check your details.");
+      }
+    } catch (error) {
+      toast.error(
+        "Failed to update password. Please check your details and try again."
+      );
+      console.error("Detailed error:", error.message);
+    }
+  };
 
   //To show old password
   const toggleOldPasswordVisibility = () => {
@@ -98,7 +74,7 @@ const Settings = () => {
   return (
     <>
       <h1 className="settings-header">Settings</h1>
-      <form className="settings-form">
+      <form className="settings-form" onSubmit={handleUpdate}>
         <div className="settings-form-group">
           <div className="settings-input-with-icon">
             <img
